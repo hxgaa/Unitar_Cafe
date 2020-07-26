@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">UNITAR Cafe</string>
+    <string name="slogan">Order your food and collect it once it\'s ready! It\'s that EASY!!</string>
+
+    <!--MainActivity Button-->
+    <string name="signUp">Sign Up</string>
+    <string name="signIn">Sign In</string>
+    <string name="title_activity_home">Home</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="todo">TODO</string>
+    <string name="signInEmail">something1@email.com</string>
+    <string name="signInPass">abcd1234</string>
+    <string name="signUpSName">Hegaarooban Phoobalan</string>
+    <string name="signUpSPhone">0123456789</string>
+    <string name="signUpUser">user001</string>
+</resources>

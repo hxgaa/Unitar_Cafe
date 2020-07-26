@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "255978704096",
+    "firebase_url": "https://unitarcafe.firebaseio.com",
+    "project_id": "unitarcafe",
+    "storage_bucket": "unitarcafe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255978704096:android:6697f01a6a2bce4511d485",
+        "android_client_info": {
+          "package_name": "com.unitarcafe.hegaa.unitarcafe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "255978704096-ms058vhtk9ou6ql01q5thblnbho45gvp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIe4Ww8IKZHJkd2s4k873iDnS_xC3fhEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "255978704096-ms058vhtk9ou6ql01q5thblnbho45gvp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
