@@ -21,6 +21,7 @@
         </activity>
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.SignIn" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.SignUp" />
+        <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorSignin" />
         <activity
             android:name="com.unitarcafe.hegaa.unitarcafe.Home"
             android:label="@string/title_activity_home"

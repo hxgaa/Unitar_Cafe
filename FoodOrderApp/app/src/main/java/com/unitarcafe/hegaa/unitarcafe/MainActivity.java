@@ -24,9 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     EditText edUserid, edPass;
     Button btnSignIn, btnSignUp;
-    TextView textSlogan;
+    TextView textSlogan, textvendorsignin;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         edPass = findViewById(R.id.edit_Pass);
 
         textSlogan = findViewById(R.id.textSlogan);
+        textvendorsignin = findViewById(R.id.textvendorsignin);
         Typeface typeface = Typeface.createFromAsset(getAssets(), "fonts/NABILA.TTF");
         textSlogan.setTypeface(typeface);
 
@@ -44,6 +44,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent signUpIntent = new Intent(MainActivity.this, SignUp.class);
+                startActivity(signUpIntent);
+            }
+        });
+
+        textvendorsignin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signUpIntent = new Intent(MainActivity.this, VendorSignin.class);
                 startActivity(signUpIntent);
             }
         });
