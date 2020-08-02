@@ -1,8 +1,13 @@
 package com.unitarcafe.hegaa.unitarcafe;
 
 import android.content.Intent;
+
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +15,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.unitarcafe.hegaa.unitarcafe.Common.Common;
 import com.unitarcafe.hegaa.unitarcafe.Interface.ItemClickListener;
 import com.unitarcafe.hegaa.unitarcafe.Model.Foods;
 import com.unitarcafe.hegaa.unitarcafe.ViewHolder.FoodViewHolder;
@@ -39,7 +47,9 @@ public class FoodList extends AppCompatActivity {
 
         //Firebase
         database = FirebaseDatabase.getInstance();
-        foodList = database.getReference("Foods");
+        foodList = database.getReference().child(getIntent().getStringExtra("CategoryId"));
+        System.out.println("Category: "+getIntent().getStringExtra("CategoryId"));
+
 
         recyclerView = findViewById(R.id.recycler_food);
         //recyclerView.setHasFixedSize(true);
@@ -47,26 +57,31 @@ public class FoodList extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         //Get intent here from Home_Activity to get CategoryId
-        if (getIntent() != null){
-            categoryId = getIntent().getStringExtra("CategoryId");
-        }
+//        if (getIntent() != null){
+//            foodList.child(getIntent().getStringExtra("CategoryId"));
+//        }
 
-        if(!categoryId.isEmpty() && categoryId != null){
-            loadListFood(categoryId);
-        }
+//        if(!categoryId.isEmpty() && categoryId != null){
+//            loadListFood(categoryId);
+//        }
+        System.out.println("PASS1");
+        loadListFood();
 
     }
 
     //loadadListFood() method implementation
-    private void loadListFood(String categoryId) {
-        adapter = new FirebaseRecyclerAdapter<Foods, FoodViewHolder>(Foods.class,
-                R.layout.food_item,
-                FoodViewHolder.class,
-                foodList.orderByChild("MenuId").equalTo(categoryId) ////Like : Select * from Foods where MenuId =
+    private void loadListFood() {
+        System.out.println("PASS2");
+        adapter = new
+                FirebaseRecyclerAdapter<Foods, FoodViewHolder>
+                        (Foods.class, R.layout.food_item, FoodViewHolder.class,
+//                                foodList
+                foodList.orderByChild(getIntent().getStringExtra("CategoryId")) ////Like : Select * from Foods where MenuId =
                 ){
             @Override
-            protected void populateViewHolder(FoodViewHolder viewHolder, final Foods model, int position) {
-                viewHolder.food_name.setText(model.getName());
+            protected void populateViewHolder(FoodViewHolder viewHolder, Foods model, int position) {
+                System.out.println("Key: "+adapter.getRef(position).getKey());
+                viewHolder.food_name.setText(adapter.getRef(position).getKey());
                 Picasso.get().load(model.getImage()).into(viewHolder.food_image);
 
                 final Foods local = model;
