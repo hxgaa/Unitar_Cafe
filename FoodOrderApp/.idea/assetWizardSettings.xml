@@ -145,7 +145,6 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ffffff" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -249,7 +248,8 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\unitar2.png" />
+                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\drinks-main.jpg" />
+                                                <entry key="scalingPercent" value="89" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -261,7 +261,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="ffffff" />
-                                                <entry key="scalingPercent" value="69" />
+                                                <entry key="scalingPercent" value="78" />
+                                                <entry key="text" value="" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -271,7 +272,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundAssetType" value="IMAGE" />
+                                      <entry key="outputName" value="ic_bannerdrinks" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -331,6 +332,11 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="TV_BANNER" />
                           </map>
                         </option>
                       </PersistentState>

@@ -79,7 +79,7 @@ public class Home extends AppCompatActivity
         //Set Name for user
         View headerView = navigationView.getHeaderView(0);
         txtFullName = headerView.findViewById(R.id.text_fullName);
-        txtFullName.setText(Common.currentUser.getName());
+        txtFullName.setText("Welcome, "+Common.currentUser.getName());
 
         //Load menu
         recycler_menu = findViewById(R.id.recycler_menu);
@@ -97,9 +97,12 @@ public class Home extends AppCompatActivity
                         (Menu.class, R.layout.menu_item, MenuViewHolder.class, menu) {
             @Override
             protected void populateViewHolder(MenuViewHolder viewHolder, Menu model, int position) {
-                viewHolder.txtMenuName.setText(model.getName());
-                Picasso.get().load(model.getImage()).into(viewHolder.imageView);
-                final Menu clickItem = model;
+                viewHolder.txtMenuName.setText(adapter.getRef(position).getKey());
+                if (adapter.getRef(position).getKey().equals("drinks")) {
+                    viewHolder.imageView.setImageResource(R.mipmap.ic_bannerdrinks_foreground);
+                } else if (adapter.getRef(position).getKey().equals("food")) {
+                    viewHolder.imageView.setImageResource(R.mipmap.ic_bannerfood_foreground);
+                }
                 viewHolder.setItemClickListener(new ItemClickListener() {
                     @Override
                     public void onClick(View view, int position, boolean isLongClick) {
