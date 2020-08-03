@@ -14,7 +14,6 @@
         <ImageView
             android:id="@+id/food_image_fi"
             android:scaleType="centerCrop"
-            android:src="@drawable/my_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -22,12 +21,13 @@
             android:id="@+id/food_name_fi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Name of Food"
-            android:textColor="@android:color/white"
+            android:layout_alignParentBottom="true"
             android:background="#4f0e0d0e"
-            android:textSize="20sp"
             android:gravity="center"
-            android:layout_alignParentBottom="true"/>
+            android:text="Name of Food"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
     </RelativeLayout>
 

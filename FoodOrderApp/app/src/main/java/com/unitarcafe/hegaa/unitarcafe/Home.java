@@ -3,9 +3,9 @@ package com.unitarcafe.hegaa.unitarcafe;
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.unitarcafe.hegaa.unitarcafe.Adapters.MenuAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.view.GravityCompat;
@@ -13,27 +13,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.unitarcafe.hegaa.unitarcafe.Common.Common;
-import com.unitarcafe.hegaa.unitarcafe.Interface.ItemClickListener;
 import com.unitarcafe.hegaa.unitarcafe.Model.Menu;
-import com.unitarcafe.hegaa.unitarcafe.ViewHolder.MenuViewHolder;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final String TAG = "FoodList";
-
-    FirebaseDatabase database;
-    DatabaseReference menu;
 
     //Name in top of navigation drawer
     TextView txtFullName;
@@ -41,7 +29,6 @@ public class Home extends AppCompatActivity
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
 
-    FirebaseRecyclerAdapter<Menu, MenuViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,10 +38,6 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
-
-        //Init Firebase
-        database = FirebaseDatabase.getInstance();
-        menu = database.getReference("menu");
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -87,37 +70,23 @@ public class Home extends AppCompatActivity
         layoutManager = new LinearLayoutManager(this);
         recycler_menu.setLayoutManager(layoutManager);
 
-        loadMenu();
+        // Setting recycler adapter
+        MenuAdapter menuAdapter = new MenuAdapter(generateMenuList());
+        recycler_menu.setAdapter(menuAdapter);
+
     }
 
-    //
-    private void loadMenu() {
-        adapter = new
-                FirebaseRecyclerAdapter<Menu, MenuViewHolder>
-                        (Menu.class, R.layout.menu_item, MenuViewHolder.class, menu) {
-            @Override
-            protected void populateViewHolder(MenuViewHolder viewHolder, Menu model, int position) {
-                viewHolder.txtMenuName.setText(adapter.getRef(position).getKey());
-                if (adapter.getRef(position).getKey().equals("drinks")) {
-                    viewHolder.imageView.setImageResource(R.mipmap.ic_bannerdrinks_foreground);
-                } else if (adapter.getRef(position).getKey().equals("food")) {
-                    viewHolder.imageView.setImageResource(R.mipmap.ic_bannerfood_foreground);
-                }
-                viewHolder.setItemClickListener(new ItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position, boolean isLongClick) {
-                        //Get CategoryId and send to FoodList Activity
-                        Intent foodList = new Intent(Home.this, FoodList.class);
-                        //Because CategoryId is key, so we just get key of this item
-                        foodList.putExtra("CategoryId", adapter.getRef(position).getKey());
-                        Log.d(TAG, "HomeActivity Value of Key: "+adapter.getRef(position).getKey());
-                        Toast.makeText(Home.this, "Value of Key: "+adapter.getRef(position).getKey(), Toast.LENGTH_SHORT).show();
-                        startActivity(foodList);
-                    }
-                });
-            }
-        };
-        recycler_menu.setAdapter(adapter);
+    // Manually creating the first menu and attaching it to Menu Adapter
+    private List<Menu> generateMenuList() {
+        List<Menu> menuList = new ArrayList<>();
+
+        menuList.add(new Menu("drinks"));
+        menuList.add(new Menu("food"));
+
+        for (int i=0;i<menuList.size();i++) {
+            System.out.println("Menu: " + menuList.get(i).getName());
+        }
+        return menuList;
     }
 
     @Override

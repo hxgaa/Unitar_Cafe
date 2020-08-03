@@ -11,14 +11,13 @@ import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.unitarcafe.hegaa.unitarcafe.Database.Database;
-import com.unitarcafe.hegaa.unitarcafe.Model.Foods;
+import com.unitarcafe.hegaa.unitarcafe.Model.Items;
 import com.unitarcafe.hegaa.unitarcafe.Model.Order;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 public class FoodDetails extends AppCompatActivity {
 
@@ -34,7 +33,7 @@ public class FoodDetails extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference foods;
 
-    Foods currentFood;
+    Items currentFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,9 +87,9 @@ public class FoodDetails extends AppCompatActivity {
         foods.child(foodId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                currentFood = dataSnapshot.getValue(Foods.class);
+                currentFood = dataSnapshot.getValue(Items.class);
 
-                Picasso.get().load(currentFood.getImage()).into(foodImage);
+//                Picasso.get().load(currentFood.getImage()).into(foodImage);
                 collapsingToolbarLayout.setTitle(currentFood.getName());
 
                 foodPrice.setText(currentFood.getPrice());

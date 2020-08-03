@@ -248,7 +248,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\drinks-main.jpg" />
+                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\nasi_goreng.jpg" />
                                                 <entry key="scalingPercent" value="89" />
                                               </map>
                                             </option>
@@ -272,7 +272,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_bannerdrinks" />
+                                      <entry key="outputName" value="ic_nasigoreng" />
                                     </map>
                                   </option>
                                 </PersistentState>

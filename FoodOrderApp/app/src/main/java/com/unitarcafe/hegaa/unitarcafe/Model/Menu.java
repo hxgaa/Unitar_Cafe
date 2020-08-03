@@ -14,6 +14,10 @@ public class Menu {
         Image = image;
     }
 
+    public Menu(String name) {
+        Name = name;
+    }
+
     public String getName() {
         return Name;
     }

@@ -27,7 +27,7 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.FoodDetails" />
-        <activity android:name="com.unitarcafe.hegaa.unitarcafe.FoodList" />
+        <activity android:name="com.unitarcafe.hegaa.unitarcafe.ItemList" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.Cart" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.OrderStatus"></activity>
     </application>
