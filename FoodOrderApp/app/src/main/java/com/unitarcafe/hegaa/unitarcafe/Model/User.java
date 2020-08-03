@@ -18,6 +18,12 @@ public class User {
         Email = email;
     }
 
+    public User(String name, String email, String phone) {
+        Name = name;
+        Phone = phone;
+        Email = email;
+    }
+
     public String getPhone() {
         return Phone;
     }

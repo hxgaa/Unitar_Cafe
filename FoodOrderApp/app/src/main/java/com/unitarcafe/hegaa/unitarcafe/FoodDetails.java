@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.squareup.picasso.Picasso;
 import com.unitarcafe.hegaa.unitarcafe.Database.Database;
 import com.unitarcafe.hegaa.unitarcafe.Model.Items;
 import com.unitarcafe.hegaa.unitarcafe.Model.Order;
@@ -27,11 +28,11 @@ public class FoodDetails extends AppCompatActivity {
     FloatingActionButton btnCart;
     ElegantNumberButton numberButton;
 
-    String foodId = "";
+    String itemId = "";
 
     //Firebase Database
     FirebaseDatabase database;
-    DatabaseReference foods;
+    DatabaseReference items;
 
     Items currentFood;
 
@@ -42,7 +43,7 @@ public class FoodDetails extends AppCompatActivity {
 
         //Firebase
         database = FirebaseDatabase.getInstance();
-        foods = database.getReference("Foods");
+        items = database.getReference("menu");
 
         //Init view
         numberButton = (ElegantNumberButton)findViewById(R.id.number_button);
@@ -52,8 +53,7 @@ public class FoodDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 new Database(getBaseContext()).addToCart(new Order(
-                        foodId,
-                        currentFood.getName(),
+                        itemId,
                         numberButton.getNumber(),
                         currentFood.getPrice(),
                         currentFood.getDiscount()
@@ -73,28 +73,48 @@ public class FoodDetails extends AppCompatActivity {
 
         //Get Food Id from Intent
         if (getIntent() != null){
-            foodId = getIntent().getStringExtra("FoodId");
+            itemId = getIntent().getStringExtra("ItemId");
         }
-        if(!foodId.isEmpty()){
-            getDetailsFood(foodId);
+        if(!itemId.isEmpty()){
+            getDetailsFood(itemId);
         }else {
-            Toast.makeText(this, "Error: foodId = "+foodId, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Error: foodId = "+ itemId, Toast.LENGTH_SHORT).show();
         }
     }
 
     // getDetailsFood() method
-    private void getDetailsFood(String foodId) {
-        foods.child(foodId).addValueEventListener(new ValueEventListener() {
+    private void getDetailsFood(final String foodId) {
+        items.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                currentFood = dataSnapshot.getValue(Items.class);
+//                System.out.println("DS1: "+dataSnapshot.toString());
+                for (DataSnapshot item: dataSnapshot.getChildren()) {
+//                    System.out.println("DS2: "+item.toString());
+                    for (DataSnapshot specificItem : item.getChildren()) {
+//                        System.out.println("DS3: "+specificItem.toString());
+                         currentFood = specificItem.getValue(Items.class);
+//                        System.out.println("Item: "+currentFood.getName());
+                        if (currentFood.getName().equals(foodId)) {
 
-//                Picasso.get().load(currentFood.getImage()).into(foodImage);
-                collapsingToolbarLayout.setTitle(currentFood.getName());
+//                            Picasso.get().load(currentFood.getImage()).into(foodImage);
+                            if (currentFood.getImage().equals("teh_tarik.jpg")) {
+                                foodImage.setImageResource(R.mipmap.ic_tehtarik_foreground);
+                            } else if (currentFood.getImage().equals("nasi_goreng.jpg")) {
+                                foodImage.setImageResource(R.mipmap.ic_nasigoreng_foreground);
+                            } else if (currentFood.getImage().equals("roti_canai.jpg")) {
+                                foodImage.setImageResource(R.mipmap.ic_roticanai_foreground);
+                            } else if (currentFood.getImage().equals("maggi_goreng.jpg")) {
+                                foodImage.setImageResource(R.mipmap.ic_maggigoreng_foreground);
+                            }
+                            collapsingToolbarLayout.setTitle(currentFood.getName());
+                            foodPrice.setText(String.valueOf(currentFood.getPrice()));
+                            foodName.setText(currentFood.getName());
+                            foodDescription.setText(currentFood.getDescription());
+                        }
+                    }
 
-                foodPrice.setText(currentFood.getPrice());
-                foodName.setText(currentFood.getName());
-                foodDescription.setText(currentFood.getDescription());
+                }
+
             }
 
             @Override

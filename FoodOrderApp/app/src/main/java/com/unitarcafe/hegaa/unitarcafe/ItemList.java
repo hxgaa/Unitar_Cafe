@@ -94,11 +94,11 @@ public class ItemList extends AppCompatActivity implements NavigationView.OnNavi
         foodList.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("Datasnapshot:"+dataSnapshot);
+//                System.out.println("Datasnapshot:"+dataSnapshot);
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot items : dataSnapshot.getChildren()) {
-                        System.out.println("Items:" + items);
-                        System.out.println("Item Data:" + items.getValue().toString());
+//                        System.out.println("Items:" + items);
+//                        System.out.println("Item Data:" + items.getValue().toString());
                         Items item = items.getValue(Items.class);
                         itemList.add(new Items(item.getName(), item.getDescription(), item.getPrice(), item.getDiscount(), item.getImage()));
 
@@ -108,7 +108,7 @@ public class ItemList extends AppCompatActivity implements NavigationView.OnNavi
                     recyclerView.setAdapter(itemAdapter);
                 } else {
                     Toast.makeText(ItemList.this, "Datasnapshot missing!", Toast.LENGTH_SHORT).show();
-                    System.out.println("Datasnapshot does not exist!");
+//                    System.out.println("Datasnapshot does not exist!");
                 }
             }
 
@@ -146,49 +146,4 @@ public class ItemList extends AppCompatActivity implements NavigationView.OnNavi
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    //loadadListFood() method implementation
-//    private void loadListFood() {
-//        System.out.println("PASS2");
-//        adapter = new
-//                FirebaseRecyclerAdapter<Foods, FoodViewHolder>
-//                        (Foods.class, R.layout.item_list, FoodViewHolder.class,
-////                                foodList
-//                foodList.orderByChild(getIntent().getStringExtra("CategoryId")) ////Like : Select * from Foods where MenuId =
-//                ){
-//                    @NonNull
-//                    @Override
-//                    public FoodViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                        return null;
-//                    }
-//
-//                    @Override
-//                    protected void onBindViewHolder(FoodViewHolder foodViewHolder, int i, Foods foods) {
-//
-//                    }
-//
-//                    protected void populateViewHolder(FoodViewHolder viewHolder, Foods model, int position) {
-//                System.out.println("Key: "+adapter.getRef(position).getKey());
-//                viewHolder.food_name.setText(adapter.getRef(position).getKey());
-////                Picasso.get().load(model.getImage()).into(viewHolder.food_image);
-//
-//                final Foods local = model;
-//                viewHolder.setItemClickListener(new ItemClickListener() {
-//                    @Override
-//                    public void onClick(View view, int position, boolean isLongClick) {
-//                         //Start new Activity
-//                        Intent foodDetail = new Intent(FoodList.this, FoodDetails.class);
-//                        //Save food id to activity
-//                        foodDetail.putExtra("FoodId", adapter.getRef(position).getKey());
-//                        startActivity(foodDetail);
-//                    }
-//                });
-//            }
-//        };
-//
-//        //Set Adapter
-//        Log.d(TAG, "loadadListFood: "+adapter.getItemCount());
-//        Toast.makeText(this, "loadadListFood: "+adapter.getItemCount(), Toast.LENGTH_SHORT).show();
-//        recyclerView.setAdapter(adapter);
-//    }
 }

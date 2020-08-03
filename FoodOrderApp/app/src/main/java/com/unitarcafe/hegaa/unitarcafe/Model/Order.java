@@ -2,7 +2,7 @@ package com.unitarcafe.hegaa.unitarcafe.Model;
 
 public class Order {
 
-    private String ProduId;
+
     private String ProduName;
     private String Quantity;
     private int Price;
@@ -12,21 +12,13 @@ public class Order {
 
     }
 
-    public Order(String produId, String produName, String quantity, int price, int discount) {
-        ProduId = produId;
+    public Order(String produName, String quantity, int price, int discount) {
         ProduName = produName;
         Quantity = quantity;
         Price = price;
         Discount = discount;
     }
 
-    public String getProduId() {
-        return ProduId;
-    }
-
-    public void setProduId(String produId) {
-        ProduId = produId;
-    }
 
     public String getProduName() {
         return ProduName;

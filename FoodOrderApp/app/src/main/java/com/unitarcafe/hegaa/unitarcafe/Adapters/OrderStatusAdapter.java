@@ -11,16 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.unitarcafe.hegaa.unitarcafe.FoodDetails;
 import com.unitarcafe.hegaa.unitarcafe.Interface.ItemClickListener;
 import com.unitarcafe.hegaa.unitarcafe.Model.Items;
+import com.unitarcafe.hegaa.unitarcafe.Model.Request;
 import com.unitarcafe.hegaa.unitarcafe.R;
 import com.unitarcafe.hegaa.unitarcafe.ViewHolder.ItemViewHolder;
+import com.unitarcafe.hegaa.unitarcafe.ViewHolder.OrderViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemsAdapter extends RecyclerView.Adapter {
-    private List<Items> models = new ArrayList<>();
+public class OrderStatusAdapter extends RecyclerView.Adapter {
+    private List<Request> models = new ArrayList<>();
 
-    public ItemsAdapter(final List<Items> viewItems) {
+    public OrderStatusAdapter(final List<Request> viewItems) {
         if (viewItems != null) {
             this.models.addAll(viewItems);
         }
@@ -29,23 +31,12 @@ public class ItemsAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
-        return new ItemViewHolder(view);
+        return new OrderViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((ItemViewHolder) holder).bindData(models.get(position));
-        ((ItemViewHolder) holder).setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View v, int position, boolean isLongClick) {
-                //Start new Activity
-                Intent foodDetail = new Intent(v.getContext(), FoodDetails.class);
-                //Save food id to activity
-                foodDetail.putExtra("ItemId", models.get(position).getName());
-//                foodDetail.putExtra("categoryId", models.get(position).getName());
-                v.getContext().startActivity(foodDetail);
-            }
-        });
+        ((OrderViewHolder) holder).bindData(models.get(position));
     }
 
     @Override
@@ -55,6 +46,6 @@ public class ItemsAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(final int position) {
-        return R.layout.item_list;
+        return R.layout.activity_order_status;
     }
 }
