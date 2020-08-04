@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
-import com.squareup.picasso.Picasso;
 import com.unitarcafe.hegaa.unitarcafe.Database.Database;
 import com.unitarcafe.hegaa.unitarcafe.Model.Items;
 import com.unitarcafe.hegaa.unitarcafe.Model.Order;

@@ -3,7 +3,7 @@ package com.unitarcafe.hegaa.unitarcafe.Model;
 public class Items {
     private String name;
     private String description;
-    private int price;
+    private double price;
     private int discount;
     private String image;
 
@@ -11,14 +11,14 @@ public class Items {
 
     }
 
-    public Items(String name, String description, int price, int discount) {
+    public Items(String name, String description, double price, int discount) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.discount = discount;
         image = "gs://unitarcafe.appspot.com/itemImages/"+name.replace(" ", "_").toLowerCase()+".jpg";
     }
-    public Items(String name, String description, int price, int discount, String img) {
+    public Items(String name, String description, double price, int discount, String img) {
         this.name = name;
         this.description = description;
         this.price = price;
@@ -42,11 +42,11 @@ public class Items {
         this.description = description;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

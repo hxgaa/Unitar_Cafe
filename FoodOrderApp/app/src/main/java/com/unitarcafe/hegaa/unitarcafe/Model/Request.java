@@ -37,11 +37,11 @@ public class Request {
         this.to = usr;
     }
 
-    public String getOrderID() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderID(String id) {
+    public void setOrderId(String id) {
         this.orderId = id;
     }
 

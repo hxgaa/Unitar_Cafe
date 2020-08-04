@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.unitarcafe.hegaa.unitarcafe.Interface.ItemClickListener;
-import com.unitarcafe.hegaa.unitarcafe.Model.Menu;
 import com.unitarcafe.hegaa.unitarcafe.Model.Request;
 import com.unitarcafe.hegaa.unitarcafe.R;
 
@@ -31,7 +30,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
     }
 
     public void bindData(final Request viewModel) {
-        txtOrderId.setText(viewModel.getOrderID());
+        txtOrderId.setText(viewModel.getOrderId());
         txtOrderStatus.setText(viewModel.getStatus());
         txtOrderPhone.setText(viewModel.getUser().getPhone());
         txtOrderAddress.setText(viewModel.getUser().getEmail());

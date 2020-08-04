@@ -13,17 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.unitarcafe.hegaa.unitarcafe.Adapters.ItemsAdapter;
 import com.unitarcafe.hegaa.unitarcafe.Common.Common;
 import com.unitarcafe.hegaa.unitarcafe.Database.Database;
-import com.unitarcafe.hegaa.unitarcafe.Model.Items;
 import com.unitarcafe.hegaa.unitarcafe.Model.Order;
 import com.unitarcafe.hegaa.unitarcafe.Model.Request;
-import com.unitarcafe.hegaa.unitarcafe.Model.User;
-import com.unitarcafe.hegaa.unitarcafe.ViewHolder.CartAdapter;
+import com.unitarcafe.hegaa.unitarcafe.Adapters.CartAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -132,13 +126,14 @@ public class Cart extends AppCompatActivity {
     //Method for load food
     private void loadListFood() {
         cart = new Database(this).getCarts();
-        adapter = new CartAdapter(cart, this);
+        adapter = new CartAdapter(cart);
         recyclerView.setAdapter(adapter);
 
         //Calculate total price
         int total = 0;
-        for (Order order : cart){
-            total += order.getPrice()*(Integer.parseInt(order.getQuantity()));
+        for (int i=0;i<cart.size();i++){
+
+            total += cart.get(i).getPrice()*(Integer.parseInt(cart.get(i).getQuantity()));
         }
         Locale locale = new Locale("en", "US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance();
