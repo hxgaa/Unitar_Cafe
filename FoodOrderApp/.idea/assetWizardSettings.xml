@@ -243,12 +243,24 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
+                                      <entry key="backgroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\vendor_order.png" />
+                                                <entry key="scalingPercent" value="27" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="foregroundImage">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\nasi_goreng.jpg" />
+                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\vendor_order.png" />
                                                 <entry key="scalingPercent" value="89" />
                                               </map>
                                             </option>
@@ -272,7 +284,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="ic_nasigoreng" />
+                                      <entry key="backgroundAssetType" value="IMAGE" />
+                                      <entry key="outputName" value="ic_vendororders" />
                                     </map>
                                   </option>
                                 </PersistentState>

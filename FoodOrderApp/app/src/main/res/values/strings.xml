@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">UNITAR Cafe</string>
     <string name="slogan">Order your food and collect it once it\'s ready! It\'s that EASY!!</string>
-    <string name="vendor_slogan">vendor\'s Sign-in</string>
+    <string name="vendor_slogan">Vendor\'s Sign-in</string>
 
     <!--MainActivity Button-->
     <string name="signUp">Sign Up</string>
