@@ -5,14 +5,14 @@ public class Order {
 
     private String ProduName;
     private String Quantity;
-    private double Price;
-    private int Discount;
+    private String Price;
+    private String Discount;
 
     public Order() {
 
     }
 
-    public Order(String produName, String quantity, double price, int discount) {
+    public Order(String produName, String quantity, String price, String discount) {
         ProduName = produName;
         Quantity = quantity;
         Price = price;
@@ -36,19 +36,19 @@ public class Order {
         Quantity = quantity;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return Price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         Price = price;
     }
 
-    public int getDiscount() {
+    public String getDiscount() {
         return Discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(String discount) {
         Discount = discount;
     }
 }

@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class FoodDetails extends AppCompatActivity {
 
-    TextView foodName, foodPrice, foodDescription;
+    TextView foodName, foodPrice, foodDescription, foodDiscount;
     ImageView foodImage;
     CollapsingToolbarLayout collapsingToolbarLayout;
     FloatingActionButton btnCart;
@@ -64,6 +64,7 @@ public class FoodDetails extends AppCompatActivity {
         foodDescription = findViewById(R.id.food_description);
         foodName = findViewById(R.id.food_name);
         foodPrice = findViewById(R.id.food_price);
+        foodDiscount = findViewById(R.id.food_discount);
         foodImage = findViewById(R.id.food_image);
 
         collapsingToolbarLayout = findViewById(R.id.collapsing);
@@ -106,7 +107,8 @@ public class FoodDetails extends AppCompatActivity {
                                 foodImage.setImageResource(R.mipmap.ic_maggigoreng_foreground);
                             }
                             collapsingToolbarLayout.setTitle(currentFood.getName());
-                            foodPrice.setText(String.valueOf(currentFood.getPrice()));
+                            foodPrice.setText(currentFood.getPrice());
+                            foodDiscount.setText(currentFood.getDiscount());
                             foodName.setText(currentFood.getName());
                             foodDescription.setText(currentFood.getDescription());
                         }

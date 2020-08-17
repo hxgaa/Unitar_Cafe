@@ -133,7 +133,7 @@ public class Cart extends AppCompatActivity {
         int total = 0;
         for (int i=0;i<cart.size();i++){
 
-            total += cart.get(i).getPrice()*(Integer.parseInt(cart.get(i).getQuantity()));
+            total += Double.parseDouble(cart.get(i).getPrice())*(Integer.parseInt(cart.get(i).getQuantity()));
         }
         Locale locale = new Locale("en", "US");
         NumberFormat fmt = NumberFormat.getCurrencyInstance();
