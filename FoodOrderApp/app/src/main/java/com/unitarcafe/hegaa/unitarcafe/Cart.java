@@ -79,18 +79,26 @@ public class Cart extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        //Create new Request
-                        Request request = new Request(
-                                uniqueId,
-                                Common.currentUser,
-                                textTotalPrice.getText().toString(),
-                                cart
-                        );
+                        requests.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                //Create new Request
+                                Request request = new Request(
+                                        uniqueId,
+                                        Common.currentUser,
+                                        textTotalPrice.getText().toString(),
+                                        cart
+                                );
+                                requests.child(uniqueId).setValue(request);
+                                orderQue.setValue(null);
 
-                        //Submit to Firebase
-                        //We will using System.CurrentMills to key
-                        requests.child(uniqueId)
-                                .setValue(request);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
 
                         Toast.makeText(Cart.this, "Thank you, Order Place.", Toast.LENGTH_SHORT).show();
 
@@ -107,17 +115,7 @@ public class Cart extends AppCompatActivity {
 
                 alertDialog.show();
 
-                requests.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
             }
         });
 
