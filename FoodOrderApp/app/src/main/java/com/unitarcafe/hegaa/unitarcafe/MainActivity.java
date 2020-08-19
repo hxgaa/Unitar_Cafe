@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,14 +50,15 @@ public class MainActivity extends AppCompatActivity {
         textvendorsignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent signUpIntent = new Intent(MainActivity.this, VendorSignin.class);
-                startActivity(signUpIntent);
+                Intent vendorLogin = new Intent(MainActivity.this, VendorSignin.class);
+                startActivity(vendorLogin);
+                finish();
             }
         });
 
         //init Firebase
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference user_account = database.getReference("users/accounts");
+        final DatabaseReference user_account = database.getReference("users/clients");
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,9 +89,6 @@ public class MainActivity extends AppCompatActivity {
                                     mDialog.dismiss();
                                         User user = dataSnapshot.child(edUserid.getText().toString()).getValue(User.class);
                                         try {
-//                                            Log.d("Passed Hash ::", finalPassHash);
-//                                            Log.d("Sent Hash ::", user.getPassHash());
-//                                            if (PassHash.check(user.getPassHash(), finalPassHash))
                                             if (finalPassHash.compareTo(user.getPassHash()) == 0) {
                                                 Toast.makeText(MainActivity.this, "Sign in success!", Toast.LENGTH_SHORT).show();
                                                 Intent homeIntent = new Intent(MainActivity.this, Home.class);

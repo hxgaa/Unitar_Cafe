@@ -24,5 +24,7 @@
     <string name="signUpUser">user001</string>
     <string name="vendor_sign_in">Are you a vendor? Sign-in here.</string>
     <string name="customer_sign_in">Are you a customer? Sign-in here.</string>
+    <string name="radioVendor">Vendor</string>
+    <string name="radioUser">User</string>
 
 </resources>

@@ -30,7 +30,7 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public void bindData(final Order viewModel) {
         txt_cart_name.setText(viewModel.getProduName());
-        txt_price.setText(String.valueOf(viewModel.getPrice()));
+        txt_price.setText("RM "+String.valueOf(viewModel.getPrice()));
         txt_cart_count.setText(viewModel.getQuantity());
     }
 

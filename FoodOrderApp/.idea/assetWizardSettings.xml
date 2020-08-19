@@ -24,7 +24,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\DJ\AppData\Local\Temp\ic_shopping_cart_black_24dp.xml" />
+                                                <entry key="imagePath" value="C:\Users\DJ\AppData\Local\Temp\baseline_home_24.xml" />
                                                 <entry key="opacityPercent" value="80" />
                                               </map>
                                             </option>
@@ -36,7 +36,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_shopping_cart_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material/icons/materialicons/home/baseline_home_24.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -47,8 +47,9 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="C:\Users\RuhulPc\Desktop\OrderFood App\bd_taka_icon.png" />
-                                                <entry key="paddingPercent" value="-10" />
+                                                <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\25694.png" />
+                                                <entry key="opacityPercent" value="80" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -80,10 +81,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="imageAsset" value="C:\Users\RuhulPc\Desktop\OrderFood App\bd_taka_icon.png" />
-                                      <entry key="outputName" value="shoping_cart_white" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\DJ\Desktop\25694.png" />
+                                      <entry key="outputName" value="home" />
                                       <entry key="theme" value="CUSTOM" />
-                                      <entry key="themeColor" value="ffffff" />
+                                      <entry key="themeColor" value="000000" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -248,7 +250,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\vendor_order.png" />
+                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\25694.png" />
                                                 <entry key="scalingPercent" value="27" />
                                               </map>
                                             </option>
@@ -260,8 +262,8 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\vendor_order.png" />
-                                                <entry key="scalingPercent" value="89" />
+                                                <entry key="imagePath" value="C:\Users\DJ\Desktop\25694.png" />
+                                                <entry key="scalingPercent" value="101" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -273,7 +275,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="ffffff" />
-                                                <entry key="scalingPercent" value="78" />
+                                                <entry key="scalingPercent" value="74" />
                                                 <entry key="text" value="" />
                                               </map>
                                             </option>
@@ -285,7 +287,7 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="IMAGE" />
-                                      <entry key="outputName" value="ic_vendororders" />
+                                      <entry key="outputName" value="ic_home" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -349,7 +351,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="TV_BANNER" />
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

@@ -54,12 +54,13 @@ public class VendorSignin extends AppCompatActivity {
             public void onClick(View v) {
                 Intent signInIntent = new Intent(VendorSignin.this, MainActivity.class);
                 startActivity(signInIntent);
+                finish();
             }
         });
 
         //init Firebase
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference user_account = database.getReference("users/accounts");
+        final DatabaseReference user_account = database.getReference("users/vendors");
 
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

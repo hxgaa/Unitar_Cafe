@@ -4,19 +4,24 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.tabs.TabLayout;
 
 
 public class VendorHome extends AppCompatActivity {
 
-    ImageView food, order;
+    Toolbar food, order, home;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendorhome);
-        food = findViewById(R.id.vendorFood);
-        order = findViewById(R.id.vendorOrder);
+        home = findViewById(R.id.tabHome);
+        food = findViewById(R.id.tabFoods);
+        order = findViewById(R.id.tabOrders);
 
         food.setOnClickListener(new View.OnClickListener() {
             @Override

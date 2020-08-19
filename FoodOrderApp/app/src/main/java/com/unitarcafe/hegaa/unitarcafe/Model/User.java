@@ -6,9 +6,17 @@ public class User {
     private String PassHash;
     private String Phone;
     private String Email;
+    private String UserID;
 
     public User() {
 
+    }
+    public User(String userID, String name, String password, String email, String phone) {
+        UserID = userID;
+        Name = name;
+        PassHash = password;
+        Phone = phone;
+        Email = email;
     }
 
     public User(String name, String password, String email, String phone) {
@@ -22,6 +30,13 @@ public class User {
         Name = name;
         Phone = phone;
         Email = email;
+    }
+    public String getUserID() {
+        return UserID;
+    }
+
+    public void setUserID(String id) {
+        this.UserID = id;
     }
 
     public String getPhone() {
