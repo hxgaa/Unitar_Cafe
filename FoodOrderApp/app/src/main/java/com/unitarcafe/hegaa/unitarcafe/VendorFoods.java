@@ -25,15 +25,15 @@ import com.unitarcafe.hegaa.unitarcafe.Adapters.VendorMenuAdapter;
 import com.unitarcafe.hegaa.unitarcafe.Common.Common;
 import com.unitarcafe.hegaa.unitarcafe.Model.Items;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VendorFoods extends AppCompatActivity {
-    TabLayout food, order, home;
-    TextView lblWelcome;
+
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
 
-    List<Items> allItems;
+    List<Items> allItems = new ArrayList<>();;
 
     //Firebase Database
     FirebaseDatabase database;
@@ -46,53 +46,32 @@ public class VendorFoods extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_foods);
-
-        androidx.appcompat.widget.Toolbar toolbar = (Toolbar) findViewById(R.id.vendorToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.vendorToolbar);
+        toolbar.setTitle("Manage Items");
         setSupportActionBar(toolbar);
-        TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
-
-        home = findViewById(R.id.tabHome);
-        food = findViewById(R.id.tabFoods);
-        order = findViewById(R.id.tabOrders);
-        lblWelcome = findViewById(R.id.lblWelcome);
+        final TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        TabLayout.Tab tab = tabs.getTabAt(2);
+        tab.select();
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Toast.makeText(VendorFoods.this, "Vendor Foods", Toast.LENGTH_SHORT).show();
-                if (tab.equals(home)) {
-                    food.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(VendorFoods.this, "Key: Manage Food!", Toast.LENGTH_SHORT).show();
-                            Intent foods = new Intent(VendorFoods.this, VendorHome.class);
-                            startActivity(foods);
-                            finish();
-                        }
-                    });
-                } else if (tab.equals(order)) {
+                Toast.makeText(VendorFoods.this, "Vendor Food", Toast.LENGTH_SHORT).show();
+                int selectedTabPosition = tabs.getSelectedTabPosition();
+                if (selectedTabPosition == 0) {
 
+                    Intent foods = new Intent(VendorFoods.this, VendorHome.class);
+                    startActivity(foods);
+                    finish();
 
-                    order.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Toast.makeText(VendorFoods.this, "Key: Manage Orders!", Toast.LENGTH_SHORT).show();
-                            Intent foods = new Intent(VendorFoods.this, VendorOrders.class);
-                            startActivity(foods);
-                            finish();
-                        }
-                    });
+                } else if (selectedTabPosition == 1) {
+
+                    Intent foods = new Intent(VendorFoods.this, VendorOrders.class);
+                    startActivity(foods);
+                    finish();
+
                 }
-//                } else {
-//
-//                    home.setOnClickListener(new View.OnClickListener() {
-//                        @Override
-//                        public void onClick(View v) {
-//                            Toast.makeText(VendorHome.this, "Key: Home!", Toast.LENGTH_SHORT).show();
-////                VendorHome.this.recreate();
-//                        }
-//                    });
-//                }
+
             }
 
             @Override
@@ -106,9 +85,6 @@ public class VendorFoods extends AppCompatActivity {
             }
         });
 
-
-        lblWelcome.setText("Welcome, "+ Common.currentUser.getName());
-
         //Load foods
         recycler_menu = findViewById(R.id.recyclerFoodItems);
         recycler_menu.setHasFixedSize(true);
@@ -121,35 +97,13 @@ public class VendorFoods extends AppCompatActivity {
         storage = FirebaseStorage.getInstance("gs://unitarcafe.appspot.com/");
         imageStorage = storage.getReference().child("itemImages");
 
-        food.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(VendorFoods.this, "Key: Manage Food!", Toast.LENGTH_SHORT).show();
-//                VendorFoods.this.recreate();
-            }
-        });
+        getItems();
 
-        order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(VendorFoods.this, "Key: Manage Orders!", Toast.LENGTH_SHORT).show();
-                Intent foods = new Intent(VendorFoods.this, VendorOrders.class);
-                finish();
-            }
-        });
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(VendorFoods.this, "Key: Home!", Toast.LENGTH_SHORT).show();
-                Intent foods = new Intent(VendorFoods.this, VendorHome.class);
-                finish();
-            }
-        });
 
     }
 
-    private void getItems(final String foodId) {
+
+    private void getItems() {
         items.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -158,12 +112,19 @@ public class VendorFoods extends AppCompatActivity {
                     for (DataSnapshot specificItem : item.getChildren()) {
 //                        System.out.println("DS3: "+specificItem.toString());
                         Items currentFood = specificItem.getValue(Items.class);
-                        allItems.add(currentFood);
 //                        System.out.println("Item: "+currentFood.getName());
+//                        System.out.println("Item: "+currentFood.getPrice());
+//                        System.out.println("Item: "+currentFood.getDescription());
+//                        System.out.println("Item: "+currentFood.getDiscount());
+//                        System.out.println("Item: "+currentFood.getImage());
+                        allItems.add(new Items(currentFood.getName(), currentFood.getDescription(), currentFood.getPrice(), currentFood.getDiscount(), currentFood.getImage()));
+
 
                     }
 
                 }
+                VendorMenuAdapter adapter = new VendorMenuAdapter(allItems);
+                recycler_menu.setAdapter(adapter);
             }
 
             @Override
@@ -172,11 +133,17 @@ public class VendorFoods extends AppCompatActivity {
             }
         });
 
-        VendorMenuAdapter adapter = new VendorMenuAdapter(allItems);
-        recycler_menu.setAdapter(adapter);
+
 
     }
 
-
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent foods = new Intent(VendorFoods.this, VendorHome.class);
+        startActivity(foods);
+        finish();
+    }
 
 }

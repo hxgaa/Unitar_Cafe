@@ -9,50 +9,59 @@ import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.tabs.TabLayout;
 import com.unitarcafe.hegaa.unitarcafe.Common.Common;
 
 public class VendorOrders extends AppCompatActivity {
-
-    Toolbar food, order, home;
-    TextView lblWelcome;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_orders);
-        home = findViewById(R.id.tabHome);
-        food = findViewById(R.id.tabFoods);
-        order = findViewById(R.id.tabOrders);
-        lblWelcome = findViewById(R.id.lblWelcome);
+        androidx.appcompat.widget.Toolbar toolbar = (androidx.appcompat.widget.Toolbar) findViewById(R.id.vendorToolbar);
+        toolbar.setTitle("Manage Orders");
+        setSupportActionBar(toolbar);
+        final TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        TabLayout.Tab tab = tabs.getTabAt(1);
+        tab.select();
 
-        lblWelcome.setText("Welcome, "+ Common.currentUser.getName());
-
-        food.setOnClickListener(new View.OnClickListener() {
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Toast.makeText(VendorOrders.this, "Key: Manage Food!", Toast.LENGTH_SHORT).show();
-                Intent foods = new Intent(VendorOrders.this, VendorFoods.class);
-                finish();
+            public void onTabSelected(TabLayout.Tab tab) {
+                Toast.makeText(VendorOrders.this, "Vendor Orders", Toast.LENGTH_SHORT).show();
+                int selectedTabPosition = tabs.getSelectedTabPosition();
+                if (selectedTabPosition == 0) {
+
+                    Intent foods = new Intent(VendorOrders.this, VendorHome.class);
+                    startActivity(foods);
+                    finish();
+
+                } else if (selectedTabPosition == 2) {
+                    Intent foods = new Intent(VendorOrders.this, VendorFoods.class);
+                    startActivity(foods);
+                    finish();
+
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
 
             }
         });
+    }
 
-        order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(VendorOrders.this, "Key: Manage Orders!", Toast.LENGTH_SHORT).show();
-//                VendorOrders.this.recreate();
-            }
-        });
-
-        home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(VendorOrders.this, "Key: Home!", Toast.LENGTH_SHORT).show();
-                Intent foods = new Intent(VendorOrders.this, VendorHome.class);
-                finish();
-            }
-        });
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent foods = new Intent(VendorOrders.this, VendorHome.class);
+        startActivity(foods);
+        finish();
     }
 }

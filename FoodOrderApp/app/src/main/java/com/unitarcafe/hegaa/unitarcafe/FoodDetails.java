@@ -145,7 +145,7 @@ public class FoodDetails extends AppCompatActivity {
                     for (DataSnapshot specificItem : item.getChildren()) {
 //                        System.out.println("DS3: "+specificItem.toString());
                          currentFood = specificItem.getValue(Items.class);
-                         allItems.add(currentFood);
+                         allItems.add(new Items(currentFood.getName(), currentFood.getDescription(), currentFood.getPrice(), currentFood.getDiscount(), currentFood.getImage()));
 
                     }
 
@@ -160,24 +160,24 @@ public class FoodDetails extends AppCompatActivity {
         });
 
         for (Items item: allItems) {
-            if (currentFood.getName().equals(foodId)) {
+            if (item.getName().equals(foodId)) {
                 System.out.println("Food :"+foodId);
-                selectedFood = currentFood;
+                selectedFood = item;
 
-                if (currentFood.getImage().equals("teh_tarik.jpg")) {
+                if (item.getImage().equals("teh_tarik.jpg")) {
                     foodImage.setImageResource(R.mipmap.ic_tehtarik_foreground);
-                } else if (currentFood.getImage().equals("nasi_goreng.jpg")) {
+                } else if (item.getImage().equals("nasi_goreng.jpg")) {
                     foodImage.setImageResource(R.mipmap.ic_nasigoreng_foreground);
-                } else if (currentFood.getImage().equals("roti_canai.jpg")) {
+                } else if (item.getImage().equals("roti_canai.jpg")) {
                     foodImage.setImageResource(R.mipmap.ic_roticanai_foreground);
-                } else if (currentFood.getImage().equals("maggi_goreng.jpg")) {
+                } else if (item.getImage().equals("maggi_goreng.jpg")) {
                     foodImage.setImageResource(R.mipmap.ic_maggigoreng_foreground);
                 }
-                collapsingToolbarLayout.setTitle(currentFood.getName());
-                foodPrice.setText(currentFood.getPrice());
-                foodDiscount.setText(currentFood.getDiscount());
-                foodName.setText(currentFood.getName());
-                foodDescription.setText(currentFood.getDescription());
+                collapsingToolbarLayout.setTitle(item.getName());
+                foodPrice.setText(item.getPrice());
+                foodDiscount.setText(item.getDiscount());
+                foodName.setText(item.getName());
+                foodDescription.setText(item.getDescription());
             }
         }
 

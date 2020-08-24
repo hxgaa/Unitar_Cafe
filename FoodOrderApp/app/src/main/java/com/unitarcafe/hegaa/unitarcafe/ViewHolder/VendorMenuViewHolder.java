@@ -34,6 +34,7 @@ public class VendorMenuViewHolder extends RecyclerView.ViewHolder implements Vie
 
     public void bindData(final Items viewModel) {
         txtItemName.setText(viewModel.getName());
+        txtItemPrice.setText(viewModel.getPrice());
         if (viewModel.getName().equals("drinks")) {
             imageView.setImageResource(R.mipmap.ic_bannerdrinks_foreground);
         } else if (viewModel.getName().equals("food")) {
