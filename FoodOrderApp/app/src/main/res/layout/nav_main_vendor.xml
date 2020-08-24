@@ -16,12 +16,14 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/fbutton_color_midnight_blue"
+            android:clickable="true"
             android:textAlignment="center"
             app:layout_scrollFlags="scroll|enterAlways"
             app:title="Home"
             app:titleMargin="4dp"
             app:titleMarginStart="30dp"
-            app:titleTextColor="@color/ic_banner_background"></androidx.appcompat.widget.Toolbar>
+            app:titleTextColor="@color/ic_banner_background"
+            android:focusable="true"></androidx.appcompat.widget.Toolbar>
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
@@ -37,21 +39,33 @@
                 android:id="@+id/tabHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="HOME" />
+                android:clickable="true"
+                android:text="@string/tabHome"
+                android:focusable="true" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabOrders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Orders" />
+                android:clickable="true"
+                android:text="@string/tabOrders"
+                android:focusable="true" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabFoods"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="FOODS" />
+                android:clickable="true"
+                android:text="@string/tabFoods"
+                android:focusable="true" />
 
         </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

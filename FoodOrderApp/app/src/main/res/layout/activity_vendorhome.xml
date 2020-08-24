@@ -5,7 +5,8 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:theme="@style/AppTheme">
 
     <include
         layout="@layout/nav_main_vendor"
@@ -28,13 +29,10 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:text="Sales Report"
         android:textSize="15sp" />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/chart"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </LinearLayout>

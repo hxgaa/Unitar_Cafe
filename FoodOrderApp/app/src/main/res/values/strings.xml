@@ -26,5 +26,8 @@
     <string name="customer_sign_in">Are you a customer? Sign-in here.</string>
     <string name="radioVendor">Vendor</string>
     <string name="radioUser">User</string>
+    <string name="tabHome">HOME</string>
+    <string name="tabOrders">Orders</string>
+    <string name="tabFoods">FOODS</string>
 
 </resources>

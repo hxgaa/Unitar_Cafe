@@ -20,6 +20,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.unitarcafe.hegaa.unitarcafe.Common.Common;
+import com.unitarcafe.hegaa.unitarcafe.Model.Notification;
 import com.unitarcafe.hegaa.unitarcafe.Model.Order;
 import com.unitarcafe.hegaa.unitarcafe.Model.Request;
 import com.unitarcafe.hegaa.unitarcafe.Adapters.CartAdapter;
@@ -56,6 +57,7 @@ public class Cart extends AppCompatActivity {
         btnPlace = findViewById(R.id.btn_place_order);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference orderQue = database.getReference("cartItems").child(Common.currentUser.getUserID());
+        final DatabaseReference vendorNotification = database.getReference("notifications/vendor");
         final DatabaseReference requests = database.getReference("orders");
 
         btnPlace.setOnClickListener(new View.OnClickListener() {
@@ -91,6 +93,9 @@ public class Cart extends AppCompatActivity {
                                 );
                                 requests.child(uniqueId).setValue(request);
                                 orderQue.setValue(null);
+                                Notification vendorNoti = new Notification("New Order", "New Order from "+Common.currentUser.getUserID());
+                                String notiID = vendorNotification.push().getKey();
+                                vendorNotification.child(notiID).setValue(vendorNoti);
 
                             }
 
@@ -153,7 +158,8 @@ public class Cart extends AppCompatActivity {
                     }
                     textTotalPrice.setText(String.format("%.2f", total));
                 }else {
-                    Toast.makeText(Cart.this, "Datasnapshot missing!", Toast.LENGTH_SHORT).show();
+                    textTotalPrice.setText("0.00");
+                    Toast.makeText(Cart.this, "Cart is empty!", Toast.LENGTH_SHORT).show();
                 }
             }
 

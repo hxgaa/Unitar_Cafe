@@ -22,6 +22,8 @@
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.SignUp" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorSignin" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorHome" />
+        <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorFoods" />
+        <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorOrders" />
         <activity
             android:name="com.unitarcafe.hegaa.unitarcafe.Home"
             android:label="@string/title_activity_home"

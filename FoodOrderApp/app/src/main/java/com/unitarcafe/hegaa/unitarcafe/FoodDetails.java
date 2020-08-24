@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.util.List;
 import java.util.UUID;
 
 public class FoodDetails extends AppCompatActivity {
@@ -39,6 +40,8 @@ public class FoodDetails extends AppCompatActivity {
     DatabaseReference items, cart;
 
     Items currentFood, selectedFood;
+
+    List<Items> allItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +136,7 @@ public class FoodDetails extends AppCompatActivity {
 
     // getDetailsFood() method
     private void getDetailsFood(final String foodId) {
-        items.addValueEventListener(new ValueEventListener() {
+        items.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 //                System.out.println("DS1: "+dataSnapshot.toString());
@@ -142,27 +145,8 @@ public class FoodDetails extends AppCompatActivity {
                     for (DataSnapshot specificItem : item.getChildren()) {
 //                        System.out.println("DS3: "+specificItem.toString());
                          currentFood = specificItem.getValue(Items.class);
-//                        System.out.println("Item: "+currentFood.getName());
-                        if (currentFood.getName().equals(foodId)) {
-                            System.out.println("Food :"+foodId);
-                            selectedFood = currentFood;
+                         allItems.add(currentFood);
 
-//                            Picasso.get().load(currentFood.getImage()).into(foodImage);
-                            if (currentFood.getImage().equals("teh_tarik.jpg")) {
-                                foodImage.setImageResource(R.mipmap.ic_tehtarik_foreground);
-                            } else if (currentFood.getImage().equals("nasi_goreng.jpg")) {
-                                foodImage.setImageResource(R.mipmap.ic_nasigoreng_foreground);
-                            } else if (currentFood.getImage().equals("roti_canai.jpg")) {
-                                foodImage.setImageResource(R.mipmap.ic_roticanai_foreground);
-                            } else if (currentFood.getImage().equals("maggi_goreng.jpg")) {
-                                foodImage.setImageResource(R.mipmap.ic_maggigoreng_foreground);
-                            }
-                            collapsingToolbarLayout.setTitle(currentFood.getName());
-                            foodPrice.setText(currentFood.getPrice());
-                            foodDiscount.setText(currentFood.getDiscount());
-                            foodName.setText(currentFood.getName());
-                            foodDescription.setText(currentFood.getDescription());
-                        }
                     }
 
                 }
@@ -174,5 +158,28 @@ public class FoodDetails extends AppCompatActivity {
 
             }
         });
+
+        for (Items item: allItems) {
+            if (currentFood.getName().equals(foodId)) {
+                System.out.println("Food :"+foodId);
+                selectedFood = currentFood;
+
+                if (currentFood.getImage().equals("teh_tarik.jpg")) {
+                    foodImage.setImageResource(R.mipmap.ic_tehtarik_foreground);
+                } else if (currentFood.getImage().equals("nasi_goreng.jpg")) {
+                    foodImage.setImageResource(R.mipmap.ic_nasigoreng_foreground);
+                } else if (currentFood.getImage().equals("roti_canai.jpg")) {
+                    foodImage.setImageResource(R.mipmap.ic_roticanai_foreground);
+                } else if (currentFood.getImage().equals("maggi_goreng.jpg")) {
+                    foodImage.setImageResource(R.mipmap.ic_maggigoreng_foreground);
+                }
+                collapsingToolbarLayout.setTitle(currentFood.getName());
+                foodPrice.setText(currentFood.getPrice());
+                foodDiscount.setText(currentFood.getDiscount());
+                foodName.setText(currentFood.getName());
+                foodDescription.setText(currentFood.getDescription());
+            }
+        }
+
     }
 }
