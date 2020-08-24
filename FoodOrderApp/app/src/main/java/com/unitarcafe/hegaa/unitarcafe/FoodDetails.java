@@ -1,10 +1,15 @@
 package com.unitarcafe.hegaa.unitarcafe;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.unitarcafe.hegaa.unitarcafe.Common.Common;
 import com.unitarcafe.hegaa.unitarcafe.Model.Items;
 import com.unitarcafe.hegaa.unitarcafe.Model.Order;
@@ -39,8 +46,10 @@ public class FoodDetails extends AppCompatActivity {
     //Firebase Database
     FirebaseDatabase database;
     DatabaseReference items, cart;
+    FirebaseStorage storage;
+    StorageReference imageStorage, imgPath;
 
-    Items currentFood, selectedFood;
+    Items currentFood;
 
     List<Items> allItems = new ArrayList<>();
 
@@ -52,6 +61,8 @@ public class FoodDetails extends AppCompatActivity {
         //Firebase
         database = FirebaseDatabase.getInstance();
         items = database.getReference("menu");
+        storage = FirebaseStorage.getInstance("gs://unitarcafe.appspot.com/");
+        imageStorage = storage.getReference().child("itemImages");
         cart = database.getReference("cartItems");
 
         //Init view
@@ -151,6 +162,32 @@ public class FoodDetails extends AppCompatActivity {
                     }
 
                 }
+                for (Items item: allItems) {
+                    if (item.getName().equals(foodId)) {
+                        System.out.println("Food :"+foodId);
+                        double price = Double.parseDouble(item.getPrice());
+                        collapsingToolbarLayout.setTitle(item.getName());
+                        foodPrice.setText(String.format("%.2f", price));
+                        foodDiscount.setText(item.getDiscount());
+                        foodName.setText(item.getName());
+                        foodDescription.setText(item.getDescription());
+                        imgPath = imageStorage.child(item.getImage());
+                        final long ONE_MEGABYTE = 1024 * 1024;
+                        imgPath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            @Override
+                            public void onSuccess(byte[] bytes) {
+                                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                foodImage.setImageBitmap(bmp);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                foodImage.setImageResource(R.drawable.ic_restaurant_black);
+                            }
+                        });
+                        break;
+                    }
+                }
 
             }
 
@@ -160,27 +197,7 @@ public class FoodDetails extends AppCompatActivity {
             }
         });
 
-        for (Items item: allItems) {
-            if (item.getName().equals(foodId)) {
-                System.out.println("Food :"+foodId);
-                selectedFood = item;
 
-                if (item.getImage().equals("teh_tarik.jpg")) {
-                    foodImage.setImageResource(R.mipmap.ic_tehtarik_foreground);
-                } else if (item.getImage().equals("nasi_goreng.jpg")) {
-                    foodImage.setImageResource(R.mipmap.ic_nasigoreng_foreground);
-                } else if (item.getImage().equals("roti_canai.jpg")) {
-                    foodImage.setImageResource(R.mipmap.ic_roticanai_foreground);
-                } else if (item.getImage().equals("maggi_goreng.jpg")) {
-                    foodImage.setImageResource(R.mipmap.ic_maggigoreng_foreground);
-                }
-                collapsingToolbarLayout.setTitle(item.getName());
-                foodPrice.setText(item.getPrice());
-                foodDiscount.setText(item.getDiscount());
-                foodName.setText(item.getName());
-                foodDescription.setText(item.getDescription());
-            }
-        }
 
     }
 }
