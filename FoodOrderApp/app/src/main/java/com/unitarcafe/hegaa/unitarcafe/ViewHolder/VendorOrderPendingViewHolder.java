@@ -1,16 +1,17 @@
 package com.unitarcafe.hegaa.unitarcafe.ViewHolder;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.unitarcafe.hegaa.unitarcafe.Interface.ItemClickListener;
 import com.unitarcafe.hegaa.unitarcafe.Model.Request;
 import com.unitarcafe.hegaa.unitarcafe.R;
 
-public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class VendorOrderPendingViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-    public TextView txtOrderId, txtOrderStatus, txtOrderPhone, txtOrderEmail;
+    public TextView txtOrderId, txtOrderEmail;
 
     private ItemClickListener itemClickListener;
 
@@ -18,12 +19,10 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
         this.itemClickListener = itemClickListener;
     }
 
-    public OrderViewHolder(View itemView) {
+    public VendorOrderPendingViewHolder(View itemView) {
         super(itemView);
 
         txtOrderId = itemView.findViewById(R.id.order_id);
-        txtOrderStatus = itemView.findViewById(R.id.order_status);
-        txtOrderPhone = itemView.findViewById(R.id.order_phone);
         txtOrderEmail = itemView.findViewById(R.id.order_email);
 
         itemView.setOnClickListener(this);
@@ -31,13 +30,6 @@ public class OrderViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public void bindData(final Request viewModel) {
         txtOrderId.setText(viewModel.getOrderId());
-        if (viewModel.getStatus() == false) {
-            txtOrderStatus.setText("PENDING");
-        } else {
-            txtOrderStatus.setText("COMPLETED");
-        }
-
-        txtOrderPhone.setText(viewModel.getUser().getPhone());
         txtOrderEmail.setText(viewModel.getUser().getEmail());
 
     }

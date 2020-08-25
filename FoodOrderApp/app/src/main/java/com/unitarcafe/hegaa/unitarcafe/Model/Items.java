@@ -23,7 +23,7 @@ public class Items {
         this.description = description;
         this.price = price;
         this.discount = discount;
-        image = img;
+        this.image = img;
     }
 
     public String getName() {

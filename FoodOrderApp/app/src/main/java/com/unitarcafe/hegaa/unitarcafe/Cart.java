@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -74,7 +75,7 @@ public class Cart extends AppCompatActivity {
                         LinearLayout.LayoutParams.MATCH_PARENT
                 );
                 editTableNo.setLayoutParams(lp);
-                alertDialog.setView(editTableNo); //Add edit Text to aleart dialog
+                alertDialog.setView(editTableNo); //Add edit Text to alert dialog
                 alertDialog.setIcon(R.drawable.ic_shopping_cart);
 
                 alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
@@ -93,9 +94,9 @@ public class Cart extends AppCompatActivity {
                                 );
                                 requests.child(uniqueId).setValue(request);
                                 orderQue.setValue(null);
-                                Notification vendorNoti = new Notification("New Order", "New Order from "+Common.currentUser.getUserID());
-                                String notiID = vendorNotification.push().getKey();
-                                vendorNotification.child(notiID).setValue(vendorNoti);
+                                Intent checkout = new Intent(Cart.this, Checkout.class);
+                                checkout.putExtra("uniqueId",uniqueId);
+                                startActivity(checkout);
 
                             }
 
@@ -104,8 +105,6 @@ public class Cart extends AppCompatActivity {
 
                             }
                         });
-
-                        Toast.makeText(Cart.this, "Thank you, Order Place.", Toast.LENGTH_SHORT).show();
 
                         finish();
                     }

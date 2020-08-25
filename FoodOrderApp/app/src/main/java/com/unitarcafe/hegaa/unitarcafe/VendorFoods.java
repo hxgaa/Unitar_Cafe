@@ -3,6 +3,7 @@ package com.unitarcafe.hegaa.unitarcafe;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ public class VendorFoods extends AppCompatActivity {
 
     RecyclerView recycler_menu;
     RecyclerView.LayoutManager layoutManager;
+    Button addItem;
 
     List<Items> allItems = new ArrayList<>();;
 
@@ -52,6 +54,7 @@ public class VendorFoods extends AppCompatActivity {
         final TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
         TabLayout.Tab tab = tabs.getTabAt(2);
         tab.select();
+        addItem = (Button) findViewById(R.id.btnAddItem);
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -85,7 +88,6 @@ public class VendorFoods extends AppCompatActivity {
             }
         });
 
-        //Load foods
         recycler_menu = findViewById(R.id.recyclerFoodItems);
         recycler_menu.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -99,6 +101,14 @@ public class VendorFoods extends AppCompatActivity {
 
         getItems();
 
+        addItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent foods = new Intent(VendorFoods.this, VendorFoodItem.class);
+                startActivity(foods);
+            }
+        });
+
 
     }
 
@@ -108,33 +118,19 @@ public class VendorFoods extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot item: dataSnapshot.getChildren()) {
-//                    System.out.println("DS2: "+item.toString());
                     for (DataSnapshot specificItem : item.getChildren()) {
-//                        System.out.println("DS3: "+specificItem.toString());
                         Items currentFood = specificItem.getValue(Items.class);
-//                        System.out.println("Item: "+currentFood.getName());
-//                        System.out.println("Item: "+currentFood.getPrice());
-//                        System.out.println("Item: "+currentFood.getDescription());
-//                        System.out.println("Item: "+currentFood.getDiscount());
-//                        System.out.println("Item: "+currentFood.getImage());
                         allItems.add(new Items(currentFood.getName(), currentFood.getDescription(), currentFood.getPrice(), currentFood.getDiscount(), currentFood.getImage()));
-
-
                     }
-
                 }
                 VendorMenuAdapter adapter = new VendorMenuAdapter(allItems);
                 recycler_menu.setAdapter(adapter);
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
-
-
-
     }
 
     @Override

@@ -3,6 +3,7 @@
     package="com.unitarcafe.hegaa.unitarcafe">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 <!--    <uses-permission android:name="android.permission.CALL_PHONE" />-->
 
     <application
@@ -24,6 +25,9 @@
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorHome" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorFoods" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorOrders" />
+        <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorOrderDetails" />
+        <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorPaymentDetails" />
+        <activity android:name="com.unitarcafe.hegaa.unitarcafe.VendorFoodItem" />
         <activity
             android:name="com.unitarcafe.hegaa.unitarcafe.Home"
             android:label="@string/title_activity_home"
@@ -31,6 +35,7 @@
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.FoodDetails" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.ItemList" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.Cart" />
+        <activity android:name="com.unitarcafe.hegaa.unitarcafe.Checkout" />
         <activity android:name="com.unitarcafe.hegaa.unitarcafe.OrderStatus"></activity>
     </application>
 

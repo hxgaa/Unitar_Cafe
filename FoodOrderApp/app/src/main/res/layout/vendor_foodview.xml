@@ -29,8 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-            android:editable="false"
+            android:editable="true"
             android:ems="10"
+            android:enabled="false"
             android:inputType="text"
             android:text="Nasi Goreng"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -56,8 +57,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-            android:editable="false"
+            android:editable="true"
             android:ems="10"
+            android:enabled="false"
             android:inputType="text"
             android:text="7.00"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -83,8 +85,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-            android:editable="false"
+            android:editable="true"
             android:ems="10"
+            android:enabled="false"
             android:inputType="text"
             android:text="10"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -110,8 +113,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
-            android:editable="false"
+            android:editable="true"
             android:ems="10"
+            android:enabled="false"
             android:inputType="text"
             android:text="Fried rice mixed with spices"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
@@ -134,10 +138,14 @@
 
         <ImageView
             android:id="@+id/imageItemView"
-            android:layout_width="281dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:srcCompat="@mipmap/ic_bannerfood" />
+            android:adjustViewBounds="true"
+            android:maxWidth="280dp"
+            android:maxHeight="200dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_restaurant_black" />
     </LinearLayout>
 
     <LinearLayout

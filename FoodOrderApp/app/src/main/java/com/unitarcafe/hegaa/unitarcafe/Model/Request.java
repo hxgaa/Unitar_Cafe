@@ -7,7 +7,7 @@ public class Request {
     private User to;
     private String orderId;
     private String total;
-    private String status;
+    private boolean status;
     private List<Order> foods; //list of fod orders
 
     public Request() {
@@ -18,14 +18,21 @@ public class Request {
         this.to = user;
         this.total = total;
         this.foods = foods;
-        this.status = "PENDING PAYMENT"; // "PENDING PAYMENT" , "PAYMENT SUCCESS" , "CANCELLED"
+        this.status = false;
+    }
+    public Request(String id, User user, String total, List<Order> foods, boolean status) {
+        this.orderId =id;
+        this.to = user;
+        this.total = total;
+        this.foods = foods;
+        this.status = status;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

@@ -1,8 +1,16 @@
 package com.unitarcafe.hegaa.unitarcafe.ViewHolder;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.unitarcafe.hegaa.unitarcafe.Model.Items;
 import android.widget.ImageView;
@@ -16,6 +24,9 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public ImageView food_image;
 
     private ItemClickListener itemClickListener;
+    private FirebaseStorage storage = FirebaseStorage.getInstance("gs://unitarcafe.appspot.com/");
+    private StorageReference imageStorage = storage.getReference().child("itemImages");
+    final long ONE_MEGABYTE = 1024 * 1024;
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
@@ -32,16 +43,20 @@ public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public void bindData(final Items viewModel) {
         food_name.setText(viewModel.getName());
-//        Picasso.get().load(viewModel.getImage()).into(food_image);
-        if (viewModel.getImage().equals("teh_tarik.jpg")) {
-            food_image.setImageResource(R.mipmap.ic_tehtarik_foreground);
-        } else if (viewModel.getImage().equals("nasi_goreng.jpg")) {
-            food_image.setImageResource(R.mipmap.ic_nasigoreng_foreground);
-        } else if (viewModel.getImage().equals("roti_canai.jpg")) {
-            food_image.setImageResource(R.mipmap.ic_roticanai_foreground);
-        } else if (viewModel.getImage().equals("maggi_goreng.jpg")) {
-            food_image.setImageResource(R.mipmap.ic_maggigoreng_foreground);
-        }
+        StorageReference imgPath = imageStorage.child(viewModel.getImage());
+        imgPath.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                food_image.setImageBitmap(bmp);
+            }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                food_image.setImageResource(R.drawable.ic_restaurant_black);
+            }
+        });
     }
 
     @Override

@@ -73,7 +73,6 @@ public class FoodDetails extends AppCompatActivity {
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 cart.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -98,7 +97,7 @@ public class FoodDetails extends AppCompatActivity {
                                     cart.child(userID).child("items").child(itemKey).setValue(cartItem);
                                     Toast.makeText(FoodDetails.this, "Modified at cart", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Order newOrder = new Order(itemId, numberButton.getNumber(), currentFood.getPrice(), currentFood.getDiscount());
+                                    Order newOrder = new Order(itemId, numberButton.getNumber(), foodPrice.getText().toString(), foodDiscount.getText().toString());
                                     String randomItemID = UUID.randomUUID().toString();
                                     cart.child(userID).child("items").child(randomItemID).setValue(newOrder);
                                     Toast.makeText(FoodDetails.this, "Added to cart", Toast.LENGTH_SHORT).show();
@@ -107,7 +106,7 @@ public class FoodDetails extends AppCompatActivity {
                             }
 
                         } else {
-                            Order newOrder = new Order(itemId, numberButton.getNumber(), currentFood.getPrice(), currentFood.getDiscount());
+                            Order newOrder = new Order(itemId, numberButton.getNumber(), foodPrice.getText().toString(), foodDiscount.getText().toString());
                             String randomItemID = UUID.randomUUID().toString();
                             cart.child(userID).child("items").child(randomItemID).setValue(newOrder);
                             Toast.makeText(FoodDetails.this, "Added to cart", Toast.LENGTH_SHORT).show();
@@ -158,6 +157,7 @@ public class FoodDetails extends AppCompatActivity {
 //                        System.out.println("DS3: "+specificItem.toString());
                          currentFood = specificItem.getValue(Items.class);
                          allItems.add(new Items(currentFood.getName(), currentFood.getDescription(), currentFood.getPrice(), currentFood.getDiscount(), currentFood.getImage()));
+
 
                     }
 
