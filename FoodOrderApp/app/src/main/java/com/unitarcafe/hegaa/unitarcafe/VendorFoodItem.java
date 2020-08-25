@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
@@ -34,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.unitarcafe.hegaa.unitarcafe.Model.Items;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -370,10 +372,16 @@ public class VendorFoodItem extends AppCompatActivity {
     }
 
     private String uploadItemImage(String itemName, Uri itemURI) {
+        Uri fileUri;
+        if (itemURI == null) {
+            fileUri  = Uri.parse("android.resource://com.unitarcafe.hegaa.unitarcafe/" + R.drawable.ic_restaurant_black);
+        } else {
+            fileUri = itemURI;
+        }
         String conImgName = itemName.replace(" ", "_").toLowerCase();
         String imgDataName = conImgName + imageType;
         StorageReference imgDataPath = imageStorage.child(imgDataName);
-        UploadTask uploadTask = imgDataPath.putFile(itemURI);
+        UploadTask uploadTask = imgDataPath.putFile(fileUri);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
