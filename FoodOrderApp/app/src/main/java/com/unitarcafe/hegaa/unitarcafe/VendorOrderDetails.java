@@ -163,10 +163,6 @@ public class VendorOrderDetails extends AppCompatActivity {
             if (!itemId.equals("")) {
                 getItems(itemId);
             }
-            if (disable) {
-                btnCancel.setEnabled(false);
-                btnComplete.setEnabled(false);
-            }
         }
     }
 
