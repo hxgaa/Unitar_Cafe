@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +22,15 @@ import com.unitarcafe.hegaa.unitarcafe.Adapters.VendorOrderListAdapter;
 import com.unitarcafe.hegaa.unitarcafe.Common.Common;
 import com.unitarcafe.hegaa.unitarcafe.Model.Notification;
 import com.unitarcafe.hegaa.unitarcafe.Model.Order;
+import com.unitarcafe.hegaa.unitarcafe.Model.Payment;
 import com.unitarcafe.hegaa.unitarcafe.Model.Request;
+import com.unitarcafe.hegaa.unitarcafe.Model.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class VendorOrderDetails extends AppCompatActivity {
 
@@ -32,6 +38,7 @@ public class VendorOrderDetails extends AppCompatActivity {
     public RecyclerView.LayoutManager layoutManager;
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference items = database.getReference("orders");
+    DatabaseReference payments = database.getReference("payments");
     final DatabaseReference clientNotification = database.getReference("notifications/client");
     final List<Order> orderList = new ArrayList<>();
     TextView orderId, orderUser, orderStatus, orderTotal;
@@ -106,6 +113,7 @@ public class VendorOrderDetails extends AppCompatActivity {
                         Notification clientNotif = new Notification("Order Cancelled", "Your order, Order ID: "+orderId.getText().toString()+ " has been cancelled!");
                         String notiID = clientNotification.child(orderUser.getText().toString()).push().getKey();
                         clientNotification.child(orderUser.getText().toString()).child(notiID).setValue(clientNotif);
+                        Toast.makeText(VendorOrderDetails.this, "Order Cancelled.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -123,9 +131,22 @@ public class VendorOrderDetails extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         items.child(orderId.getText().toString()).child("status").setValue(true);
+                        User user = dataSnapshot.child(orderId.getText().toString()).child("user").getValue(User.class);
+                        String diffUniqueId = UUID.randomUUID().toString();
+                        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+                        Date date = new Date(System.currentTimeMillis());
+                        Payment newPay = new Payment(
+                                user.getEmail(),
+                                orderUser.getText().toString(),
+                                orderId.getText().toString(),
+                                formatter.format(date),
+                                orderTotal.getText().toString()
+                        );
+                        payments.child(diffUniqueId).setValue(newPay);
                         Notification clientNotif = new Notification("Order Ready", "Your order, Order ID: "+orderId.getText().toString()+ " is ready to be collected!");
                         String notiID = clientNotification.child(orderUser.getText().toString()).push().getKey();
                         clientNotification.child(orderUser.getText().toString()).child(notiID).setValue(clientNotif);
+                        Toast.makeText(VendorOrderDetails.this, "Order Confirmed.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
