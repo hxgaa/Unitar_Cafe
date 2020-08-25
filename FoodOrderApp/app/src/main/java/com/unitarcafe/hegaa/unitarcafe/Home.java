@@ -1,9 +1,19 @@
 package com.unitarcafe.hegaa.unitarcafe;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.unitarcafe.hegaa.unitarcafe.Adapters.MenuAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
@@ -15,8 +25,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.unitarcafe.hegaa.unitarcafe.Adapters.NotificationsAdapter;
 import com.unitarcafe.hegaa.unitarcafe.Common.Common;
 import com.unitarcafe.hegaa.unitarcafe.Model.Menu;
+import com.unitarcafe.hegaa.unitarcafe.Model.Notification;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +40,12 @@ public class Home extends AppCompatActivity
     //Name in top of navigation drawer
     TextView txtFullName;
 
-    RecyclerView recycler_menu;
-    RecyclerView.LayoutManager layoutManager;
+    RecyclerView recycler_menu, recyclerItems;
+    RecyclerView.LayoutManager layoutManager, layoutManager1;
+    final FirebaseDatabase  database = FirebaseDatabase.getInstance();
+    final DatabaseReference notDB = database.getReference("notifications/client");
+    List<Notification> allNotifications = new ArrayList<>();
+    FloatingActionButton btnNoti;
 
 
     @Override
@@ -38,16 +56,6 @@ public class Home extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Menu");
         setSupportActionBar(toolbar);
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent cartIntent = new Intent(Home.this, Cart.class);
-                startActivity(cartIntent);
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -63,6 +71,7 @@ public class Home extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         txtFullName = headerView.findViewById(R.id.text_fullName);
         txtFullName.setText("Welcome, "+Common.currentUser.getName());
+        btnNoti = (FloatingActionButton) findViewById(R.id.notificationButton);
 
         //Load menu
         recycler_menu = findViewById(R.id.recycler_menu);
@@ -73,6 +82,53 @@ public class Home extends AppCompatActivity
         // Setting recycler adapter
         MenuAdapter menuAdapter = new MenuAdapter(generateMenuList());
         recycler_menu.setAdapter(menuAdapter);
+
+        btnNoti.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Dialog dialog = new Dialog(Home.this);
+                dialog.setContentView(R.layout.activity_notification);
+                dialog.setTitle("Notifications");
+                dialog.setCancelable(true);
+                recyclerItems = dialog.findViewById(R.id.recyclerNotification);
+                recyclerItems.setHasFixedSize(true);
+                layoutManager1 = new LinearLayoutManager(dialog.getContext());
+                recyclerItems.setLayoutManager(layoutManager1);
+                allNotifications.clear();
+                notDB.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for (DataSnapshot item: dataSnapshot.getChildren()) {
+                            for (DataSnapshot childItem : item.getChildren()) {
+                                if (item.getKey().equals(Common.currentUser.getUserID())) {
+                                    Notification noti = childItem.getValue(Notification.class);
+                                    allNotifications.add(new Notification(
+                                            childItem.getKey(),
+                                            noti.getTitle(),
+                                            noti.getStatus(),
+                                            noti.getMessage()
+                                    ));
+                                }
+                            }
+                        }
+                        NotificationsAdapter adapter = new NotificationsAdapter(allNotifications);
+                        recyclerItems.setAdapter(adapter);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                dialog.show();
+
+            }
+        });
+
+        checkVendorNotification();
 
     }
 
@@ -87,6 +143,35 @@ public class Home extends AppCompatActivity
             System.out.println("Menu: " + menuList.get(i).getName());
         }
         return menuList;
+    }
+
+    public void checkVendorNotification() {
+        notDB.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot item: dataSnapshot.getChildren()) {
+                    for (DataSnapshot childItem : item.getChildren()) {
+                        if (childItem.getKey().equals(Common.currentUser.getUserID())) {
+                            Notification noti = childItem.getValue(Notification.class);
+                            allNotifications.add(new Notification(
+                                    item.getKey(),
+                                    noti.getTitle(),
+                                    noti.getStatus(),
+                                    noti.getMessage()
+                            ));
+                        }
+                    }
+                }
+                btnNoti.getDrawable().mutate().setTint(getResources().getColor(R.color.red));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override

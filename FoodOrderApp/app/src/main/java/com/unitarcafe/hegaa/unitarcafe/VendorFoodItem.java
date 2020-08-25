@@ -252,6 +252,7 @@ public class VendorFoodItem extends AppCompatActivity {
                 });
                 btnSaveItem.setEnabled(true);
                 btnEdit.setEnabled(false);
+                btnDeleteItem.setEnabled(false);
 
 
             }
